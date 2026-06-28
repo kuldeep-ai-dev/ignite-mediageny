@@ -72,7 +72,8 @@ const EventDetails = () => {
                   <CheckCircle size={15} /> Certificate
                 </div>
                 <div className="meta-chip price-chip">
-                  {event.price}
+                  {typeof event.price === 'number' ? `₹${event.price}` : event.price}
+                  {event.price !== 'Free' && <small style={{ fontSize: '0.65rem', marginLeft: '4px', opacity: 0.7 }}>+ taxes</small>}
                 </div>
               </div>
 
@@ -154,7 +155,10 @@ const EventDetails = () => {
                     <div key={i} className={`batch-card ${batch.name.toLowerCase()}`}>
                       <div className="batch-level-tag">{batch.level}</div>
                       <h4>{batch.name} Batch</h4>
-                      <div className="batch-price">₹{batch.price}</div>
+                      <div className="batch-price">
+                        ₹{batch.price}
+                        <div style={{ fontSize: '0.8rem', opacity: 0.7, fontWeight: 'normal', letterSpacing: 'normal' }}>+ taxes</div>
+                      </div>
                       <p className="batch-focus"><strong>Focus:</strong> {batch.focus}</p>
                       <div className="capstone-box">
                         <small>Capstone Project</small>

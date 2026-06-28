@@ -81,7 +81,11 @@ const EventGrid = () => {
                   <p>{event.description.substring(0, 80)}...</p>
                   <div className="card-meta">
                     <span><Calendar size={14} /> {event.duration}</span>
-                    <span><Tag size={14} /> {event.price}</span>
+                    <span>
+                      <Tag size={14} />
+                      {typeof event.price === 'number' ? `₹${event.price}` : event.price}
+                      {event.price !== 'Free' && <small style={{ fontSize: '0.65rem', marginLeft: '4px', opacity: 0.7 }}>+ taxes</small>}
+                    </span>
                   </div>
                   <button className="btn-view">
                     View Details <ChevronRight size={16} />

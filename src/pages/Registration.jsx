@@ -97,11 +97,14 @@ const Registration = () => {
             const res = await registerStudent(studentData, registrationData);
             const registrationId = res.registration_id;
 
+            const baseAmt = parseFloat(batch.price);
+            const totalPayable = isNaN(baseAmt) ? 0 : baseAmt + Math.round(baseAmt * 0.18);
+
             // 2. Insert payment details
             await createPayment({
                 registration_id: registrationId,
                 transaction_id: formData.transactionId,
-                amount: parseFloat(batch.price),
+                amount: totalPayable || 0,
                 status: 'pending'
             });
 
@@ -288,10 +291,18 @@ const Registration = () => {
                                         <span className="label">Level</span>
                                         <span className="value">{batch.level}</span>
                                     </div>
+                                    {batch.price !== 'Free' && (
+                                        <div className="summary-item">
+                                            <span className="label">Taxes & Charges (18%)</span>
+                                            <span className="value" style={{ color: '#888' }}>+ ₹{Math.round(parseFloat(batch.price) * 0.18)}</span>
+                                        </div>
+                                    )}
                                     <hr />
                                     <div className="total-row">
                                         <span>Total Amount</span>
-                                        <span className="price">₹{batch.price}</span>
+                                        <span className="price">
+                                            {batch.price === 'Free' ? 'Free' : `₹${parseFloat(batch.price) + Math.round(parseFloat(batch.price) * 0.18)}`}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="support-sidebar-box mt-4">
