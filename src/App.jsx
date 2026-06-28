@@ -1,4 +1,5 @@
 import React from 'react';
+import { Analytics } from "@vercel/analytics/react";
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -54,6 +55,7 @@ function App() {
             <Route path="institutes" element={<InstitutesManager />} />
           </Route>
         </Routes>
+        <Analytics />
       </div>
     </Router>
   );
